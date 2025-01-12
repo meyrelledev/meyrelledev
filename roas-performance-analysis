@@ -1,0 +1,57 @@
+# Script completo de análise de performance de mídia paga
+
+# Entrada de dados
+investimento = float(input("Digite o valor investido em anúncios (R$): "))
+receita = float(input("Digite a receita gerada (R$): "))
+cliques = int(input("Digite o número total de cliques no anúncio: "))
+conversoes = int(input("Digite o número total de vendas/conversões: "))
+
+# Cálculos das métricas (roas, cpa, cvr, cpc e ctr)
+roas = receita / investimento
+cpa = investimento / conversoes if conversoes > 0 else 0
+cvr = (conversoes / cliques) * 100 if cliques > 0 else 0
+cpc = investimento / cliques if cliques > 0 else 0
+ctr = (cliques / 1000) * 100  # Assumindo 1000 impressões para o CTR
+
+# Diagnóstico de ROAS e Dicas de Melhorias
+if roas < 2:
+    nivel = "Ruim"
+    recomendacao = """
+    🚩 Seu ROAS está abaixo do esperado. Aqui estão sugestões para melhorar:
+    - 🎯 Melhorar segmentação de público e fazer testes A/B.
+    - 📊 Revisar criativos e chamadas para ação mais diretas.
+    - 📈 Trabalhar a oferta e o ticket médio para aumentar o retorno.
+    """
+elif 2 <= roas < 4:
+    nivel = "Médio"
+    recomendacao = """
+    ⚠️ ROAS mediano. Dicas para melhorar:
+    - 🧪 Fazer testes A/B em criativos e headlines.
+    - 🎯 Expandir audiências com Lookalike e Remarketing.
+    - 💰 Ajustar orçamento para otimizar o CPC.
+    """
+elif 4 <= roas < 7:
+    nivel = "Bom"
+    recomendacao = """
+    ✅ Seu ROAS está bom! Recomendações para manter e melhorar:
+    - 🚀 Escalar campanhas mantendo a segmentação atual.
+    - 🔄 Automatizar testes A/B para melhoria contínua.
+    - 📊 Monitorar frequência e evitar saturação do público.
+    """
+else:
+    nivel = "Excelente"
+    recomendacao = """
+    🎯 Parabéns! Seu ROAS está excelente! Dicas para manutenção:
+    - 🌍 Expandir para novos públicos e mercados.
+    - 🔄 Testar variações de criativos para manter o impacto.
+    - 📈 Monitorar outras métricas como CTR e CPC.
+    """
+
+# Exibir Resultados Detalhados
+print(f"\n🔎 **Relatório Completo de Performance:**")
+print(f"📊 ROAS: {roas:.2f} ({nivel})")
+print(f"💰 Custo por Venda (CPV): R${cpv:.2f}")
+print(f"✅ Taxa de Conversão (CVR): {cvr:.2f}%")
+print(f"🎯 CPC (Custo por Clique): R${cpc:.2f}")
+print(f"📈 CTR (Taxa de Cliques): {ctr:.2f}%")
+print(f"\n📌 Recomendação: {recomendacao}")
